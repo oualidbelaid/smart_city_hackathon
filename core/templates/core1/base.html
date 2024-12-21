@@ -64,19 +64,19 @@
         <div class="container">
             <div class="logo">SmartCity</div>
                   
-<nav>
-    <ul>
-        <li><a href="{% url 'core:index' %}">Home</a></li>
-        <li><a href="{% url 'core:hotel_list' %}">Hotels</a></li>
-        <li><a href="{% url 'core:auberge_list' %}">Auberges</a></li>
-        <li><a href="{% url 'core:complexe_list' %}">Complexes</a></li>
-        <li><a href="{% url 'core:transport' %}">Transport</a></li>
-        {% if user.is_authenticated %}
-            <li><a href="{% url 'core:profile' %}" id="profile-link">
-                <i class="fas fa-user-circle"></i>
-                {{ user.username }}
-            </a></li>
-                 
+            <nav>
+                <ul>
+                    <li><a href="{% url 'core:preferences_chat' %}">Ask</a></li>
+                    <li><a href="{% url 'core:hotel_list' %}">Hotels</a></li>
+                    <li><a href="{% url 'core:auberge_list' %}">Auberges</a></li>
+                    <li><a href="{% url 'core:complexe_list' %}">Complexes</a></li>
+                    <li><a href="{% url 'core:transport' %}">Transport</a></li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'core:profile' %}" id="profile-link">
+                            <i class="fas fa-user-circle"></i>
+                            {{ user.username }}
+                        </a></li>
+                              
 <li>
     <form method="post" action="{% url 'core:logout' %}">
         {% csrf_token %}
@@ -85,12 +85,12 @@
 </li>
 
     
-        {% else %}
-            <li><a href="{% url 'core:login' %}">Login</a></li>
-            <li><a href="{% url 'core:register' %}">Register</a></li>
-        {% endif %}
-    </ul>
-</nav>
+                    {% else %}
+                        <li><a href="{% url 'core:login' %}">Login</a></li>
+                        <li><a href="{% url 'core:register' %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
 <div class="menu-toggle"><i class="fas fa-bars"></i></div>
     
         </div>

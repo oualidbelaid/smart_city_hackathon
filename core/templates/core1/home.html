@@ -10,10 +10,10 @@
 <body>
     <header>
         <div class="container">
-            <a href="index.html" class="logo">Boumerdès Breeze</a>
+            <a href="#" class="logo">Boumerdès Breeze</a>
             <nav>
                 <ul>
-                    
+                    <li><a href="{% url 'core:preferences_chat' %}">Ask</a></li>
                     <li><a href="{% url 'core:hotel_list' %}">Hotels</a></li>
                     <li><a href="{% url 'core:auberge_list' %}">Auberges</a></li>
                     <li><a href="{% url 'core:complexe_list' %}">Complexes</a></li>
@@ -42,8 +42,9 @@
         </div>
     
      </header>   <div class="banner">
+        <div class="carousel-container">
             <div class="carousel">
-                <div class="slide active">
+                <div class="slide">
                     <img src="https://elwatan-dz.com/storage/19862/BOUMERD.png" alt="Boumerdès Beach">
                     <div class="caption">Discover the pristine beaches of Boumerdès</div>
                 </div>
@@ -52,19 +53,21 @@
                     <div class="caption">Explore the historic charm of Zemmouri El Bahri</div>
                 </div>
                 <div class="slide">
-                    <img src="https://scontent.falg2-2.fna.fbcdn.net/v/t39.30808-6/464223294_8618949021483994_570374947096071615_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=cf85f3&_nc_ohc=wu4YTOGu7MsQ7kNvgH6c_YW&_nc_zt=23&_nc_ht=scontent.falg2-2.fna&_nc_gid=A_crH4rsbN8kKpT5LnJaRck&oh=00_AYA3PYtM2GTq71nqyo5XWedjJGK7FIxq1UlEytv3E0EHjw&oe=676A9703" alt="Cap Djinet">
+                    <img src="https://boumerdes.mta.gov.dz/wp-content/uploads/sites/23/2022/01/g4.jpg" alt="Cap Djinet">
                     <div class="caption">Experience breathtaking views from Cap Djinet</div>
                 </div>
             </div>
-            <div class="controls">
-                <button class="prev"><</button>
-                <button class="next">></button>
+            <div class="carousel-controls">
+                <button class="prev" aria-label="Previous slide">&#10094;</button>
+                <button class="next" aria-label="Next slide">&#10095;</button>
             </div>
-            <div class="search-bar">
-                <input type="text" placeholder="Search hotels, activities, or attractions...">
-                <button type="submit">Search</button>
-            </div>
+            <div class="carousel-indicators"></div>
         </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search hotels, activities, or attractions...">
+            <button type="submit">Search</button>
+        </div>
+    </div>
     </header>
 
     <main>

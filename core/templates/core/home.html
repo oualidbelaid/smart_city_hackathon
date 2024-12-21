@@ -6,71 +6,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boumerdès Breeze - Explore the Beauty of Algeria</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <header>
         <div class="container">
-            <a href="{% url 'core:index' %}" class="logo">
-                <i class="fas fa-sun"></i> Boumerdès Breeze
-            </a>
+            <a href="#" class="logo">Boumerdès Breeze</a>
             <nav>
                 <ul>
-                    <li><a href="{% url 'core:hotel_list' %}">Hotels</a></li>
-                    <li><a href="{% url 'core:auberge_list' %}">Auberges</a></li>
-                    <li><a href="{% url 'core:complexe_list' %}">Complexes</a></li>
-                    <li><a href="{% url 'core:transport' %}">Transport</a></li>
+                    <li><a href="{% url 'core:preferences_chat' %}"><i class="fas fa-robot"></i> Ask</a></li>
+                    <li><a href="{% url 'core:hotel_list' %}"><i class="fas fa-hotel"></i> Hotels</a></li>
+                    <li><a href="{% url 'core:auberge_list' %}"><i class="fas fa-house"></i> Auberges</a></li>
+                    <li><a href="{% url 'core:complexe_list' %}"><i class="fas fa-city"></i> Complexes</a></li>
+                    <li><a href="{% url 'core:transport' %}"><i class="fas fa-bus"></i> Transport</a></li>
                     {% if user.is_authenticated %}
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle">
-                                <i class="fas fa-user-circle"></i> {{ user.username }} <i class="fas fa-caret-down"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{% url 'core:profile' %}">Profile</a></li>
-                                <li>
-                                    <form method="post" action="{% url 'core:logout' %}">
-                                        {% csrf_token %}
-                                        <button type="submit">Logout</button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
+                        <li><a href="{% url 'core:profile' %}" id="profile-link">
+                            <i class="fas fa-user-circle"></i>
+                            {{ user.username }}
+                        </a></li>
+                              
+<li>
+    <form method="post" action="{% url 'core:logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+</li>
+
+    
                     {% else %}
                         <li><a href="{% url 'core:login' %}">Login</a></li>
                         <li><a href="{% url 'core:register' %}">Register</a></li>
                     {% endif %}
                 </ul>
             </nav>
+            <div class="menu-toggle"><i class="fas fa-bars"></i></div>
         </div>
-    </header>
+    </header>   
 
-    <section class="banner">
-        <div class="carousel">
-            <div class="slide active">
-                <img src="https://elwatan-dz.com/storage/19862/BOUMERD.png" alt="Boumerdès Beach">
-                <div class="caption">Discover the pristine beaches of Boumerdès</div>
+    <div class="banner">
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="slide">
+                    <img src="https://elwatan-dz.com/storage/19862/BOUMERD.png" alt="Boumerdès Beach">
+                    <div class="caption">Discover the pristine beaches of Boumerdès</div>
+                </div>
+                <div class="slide">
+                    <img src="https://d3mc2wqt0g7xc3.cloudfront.net/media-test/point26588.jpg" alt="Zemmouri El Bahri">
+                    <div class="caption">Explore the historic charm of Zemmouri El Bahri</div>
+                </div>
+                <div class="slide">
+                    <img src="https://boumerdes.mta.gov.dz/wp-content/uploads/sites/23/2022/01/g4.jpg" alt="Cap Djinet">
+                    <div class="caption">Experience breathtaking views from Cap Djinet</div>
+                </div>
             </div>
-            <div class="slide">
-                <img src="https://d3mc2wqt0g7xc3.cloudfront.net/media-test/point26588.jpg" alt="Zemmouri El Bahri">
-                <div class="caption">Explore the historic charm of Zemmouri El Bahri</div>
+            <div class="controls">
+                <button class="prev" aria-label="Previous slide">❮</button>
+                <button class="next" aria-label="Next slide">❯</button>
             </div>
-            <div class="slide">
-                <img src="https://scontent.falg2-2.fna.fbcdn.net/v/t39.30808-6/464223294_8618949021483994_570374947096071615_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=cf85f3&_nc_ohc=wu4YTOGu7MsQ7kNvgH6c_YW&_nc_zt=23&_nc_ht=scontent.falg2-2.fna&_nc_gid=A_crH4rsbN8kKpT5LnJaRck&oh=00_AYA3PYtM2GTq71nqyo5XWedjJGK7FIxq1UlEytv3E0EHjw&oe=676A9703" alt="Cap Djinet">
-                <div class="caption">Experience breathtaking views from Cap Djinet</div>
+            <div class="carousel-indicators"></div>
+        </div>
+        <div class="search-bar-container">
+            <div class="search-bar">
+                <input type="text" placeholder="Search hotels, activities, or attractions...">
+                <button type="submit">Search</button>
             </div>
         </div>
-        <div class="controls">
-            <button class="prev"><i class="fas fa-chevron-left"></i></button>
-            <button class="next"><i class="fas fa-chevron-right"></i></button>
-        </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search hotels, activities, or attractions...">
-            <button type="submit" class="btn btn-primary">Search</button>
-        </div>
-    </section>
+    </div>
 
-    <main class="container">
-        <section id="features">
+    <main>
+        <section id="features" class="container">
             <h2>Experience the Best of Boumerdès</h2>
             <div class="tabs">
                 <button class="tab active" data-target="activities">Activities</button>
@@ -83,56 +87,58 @@
                     <div class="card">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Escursionismo_sulle_Alpi.jpg/300px-Escursionismo_sulle_Alpi.jpg" alt="Hiking in Boumerdès">
                         <h3>Hiking in the Djurdjura Mountains</h3>
-                        <p>Discover scenic trails with breathtaking views of the Mediterranean coastline.</p>
-                        <a href="#" class="btn btn-secondary">Learn More</a>
+                        <p>Discover scenic trails with breathtaking views of the Mediterranean coastline. Explore lush forests and encounter diverse wildlife.</p>
+                        <a href="#" class="learn-more">Learn More</a>
                     </div>
                     <div class="card">
                         <img src="https://greenwatersports.com/content/wp-content/uploads/2022/09/GreenWaterSportsLLC-171988-Involved-Water-Sports-Blogbanner1.jpg" alt="Watersports">
                         <h3>Watersports at Plage Les Salines</h3>
-                        <p>Enjoy swimming, sunbathing, and various watersports at the beautiful Plage Les Salines.</p>
-                        <a href="#" class="btn btn-secondary">Learn More</a>
+                        <p>Enjoy swimming, sunbathing, and various watersports at the beautiful Plage Les Salines. Perfect for families and adventure seekers.</p>
+                        <a href="#" class="learn-more">Learn More</a>
                     </div>
                 </div>
                 <div class="content" id="events">
                     <div class="card">
                         <img src="https://amazighworldnews.com/wp-content/uploads/2016/04/11141365_691532310987740_6899301906274666056_n-768x432.jpg" alt="Local Festival">
                         <h3>Annual Boumerdès Cultural Festival</h3>
-                        <p>Immerse yourself in the local culture with traditional music, dance, and delicious Algerian cuisine.</p>
-                        <a href="#" class="btn btn-secondary">Learn More</a>
+                        <p>Immerse yourself in the local culture with traditional music, dance, and delicious Algerian cuisine. (Held every July)</p>
+                        <a href="#" class="learn-more">Learn More</a>
                     </div>
                     <div class="card">
                         <img src="https://civilisable.com/wp-content/uploads/2024/05/Algerian-Night-13.5.2024-768x512.jpg" alt="Concerts">
                         <h3>Summer Music Concerts</h3>
                         <p>Enjoy open-air music concerts featuring local and international artists throughout the summer months.</p>
-                        <a href="#" class="btn btn-secondary">Learn More</a>
+                        <a href="#" class="learn-more">Learn More</a>
                     </div>
                 </div>
                 <div class="content" id="places">
                     <div class="card">
                         <img src="https://www.elmoudjahid.com/storage/images/article/08c662af437dc949af7a0c4b6f9fe830.jpg" alt="Casbah of Dellys">
                         <h3>The Historic Casbah of Dellys</h3>
-                        <p>Step back in time and wander through the narrow, winding streets of the ancient Casbah.</p>
-                        <a href="#" class="btn btn-secondary">Learn More</a>
+                        <p>Step back in time and wander through the narrow, winding streets of the ancient Casbah. Discover historic buildings and local artisan shops.</p>
+                        <a href="#" class="learn-more">Learn More</a>
                     </div>
                      <div class="card">
                         <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dzair-tube.dz%2Fen%2Fprices-expected-to-drop-in-coming-days-bluefin-tuna-hits-market%2F&psig=AOvVaw2vPx2Zma1o4Ao98NIhhibo&ust=1734744258088000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCIDWl5KYtYoDFQAAAAAdAAAAABAE" alt="Zemmouri Market">
                         <h3>Zemmouri El Bahri Market</h3>
-                        <p>A lively market where you can find fresh produce, local crafts, and souvenirs.</p>
-                        <a href="#" class="btn btn-secondary">Learn More</a>
+                        <p>A lively market where you can find fresh produce, local crafts, and souvenirs. Experience the vibrant atmosphere and engage with friendly locals.</p>
+                        <a href="#" class="learn-more">Learn More</a>
                     </div>
+
                 </div>
                 <div class="content" id="attractions">
                     <div class="card">
                         <img src="https://storage.googleapis.com/mari-a5cc7.appspot.com/photos/regular/0b12e1b9-5e25-4793-9924-605cbb1f8a67.webp" alt="Cap Djinet Lighthouse">
                         <h3>Cap Djinet Lighthouse</h3>
-                        <p>Visit this iconic lighthouse for panoramic views of the coastline.</p>
-                        <a href="#" class="btn btn-secondary">Learn More</a>
+                        <p>Visit this iconic lighthouse for panoramic views of the coastline. Learn about its history and enjoy the refreshing sea breeze.</p>
+                        <a href="#" class="learn-more">Learn More</a>
                     </div>
+                
                     <div class="card">
                         <img src="https://elwatan-dz.com/storage/3214/LAC.jpg" alt="Reghaia National Reserve">
                         <h3>Reghaia National Reserve</h3>
-                        <p>Explore this natural reserve known for its diverse flora and fauna.</p>
-                        <a href="#" class="btn btn-secondary">Learn More</a>
+                        <p>Explore this natural reserve known for its diverse flora and fauna. Ideal for bird watching, hiking, and enjoying nature.</p>
+                        <a href="#" class="learn-more">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -149,34 +155,31 @@
                 <img src="https://elwatan-dz.com/storage/31740/BARRAGE.png" alt="Mediterranean Sea View">
             </div>
         </section>
-        <a href="{% url 'core:preferences_chat' %}" class="chat-button">
-            <i class="fas fa-comment-dots"></i>
-        </a>
     </main>
 
     <footer>
         <div class="container">
-            <div class="footer-section about">
+            <div class="footer-section">
                 <h4>About Us</h4>
-                <p>Boumerdès Breeze is your guide to exploring the beauty of Algeria.</p>
+                <p>Boumerdès Breeze is your ultimate guide to exploring the hidden gem of Algeria. We provide curated information to help you plan your perfect trip.</p>
             </div>
-            <div class="footer-section contact">
+            <div class="footer-section">
                 <h4>Contact Us</h4>
                 <p>Email: info@boumerdesbreeze.com</p>
                 <p>Phone: +213 (0) 123 456 789</p>
             </div>
-            <div class="footer-section follow">
+            <div class="footer-section">
                 <h4>Follow Us</h4>
                 <ul class="social-links">
-                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="#" target="_blank">Facebook</a></li>
+                    <li><a href="#" target="_blank">Instagram</a></li>
+                    <li><a href="#" target="_blank">Twitter</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2024 Boumerdès Breeze. All rights reserved.</p>
-            <button class="cta btn-primary">Explore Accommodation Options Now</button>
+            <p>© 2023 Boumerdès Breeze. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a></p>
+            <button class="cta">Explore Accommodation Options Now</button>
         </div>
     </footer>
 
