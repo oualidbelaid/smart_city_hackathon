@@ -1,0 +1,62 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Hotels in Boumerdès - Boumerdès Breeze{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/listings.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="page-title-container">
+        <h1 class="page-title">Discover Your Perfect Hotel in Boumerdès</h1>
+    </div>
+
+    <div class="container">
+        <aside class="filter-sidebar">
+            <h3>Filter Your Search</h3>
+            <form method="get">
+                <div class="filter-group">
+                    <h4>Star Rating</h4>
+                    {{ form.stars }}
+                </div>
+                <div class="filter-group">
+                    <h4>Price Range</h4>
+                    {{ form.price_range }}
+                </div>
+                <div class="filter-group">
+                    <h4>Amenities</h4>
+                    {{ form.amenities }}
+                </div>
+                <button type="submit" class="btn btn-secondary">Filter</button>
+            </form>
+        </aside>
+
+        <section class="item-listings">
+            {% for hotel in hotels %}
+                <div class="listing-card">
+                    <img src="{{ hotel.image.url }}" alt="{{ hotel.name }}">
+                    <div class="listing-info">
+                        <h3><a href="{% url 'core:hotel_detail' hotel.id %}">{{ hotel.name }}</a></h3>
+                        <div class="rating">
+                            {% for i in hotel.stars|rjust:hotel.stars %}
+                                <i class="fas fa-star"></i>
+                            {% endfor %}
+                            {% for i in hotel.stars|ljust:hotel.stars %}
+                                <i class="far fa-star"></i>
+                            {% endfor %}
+                            <span class="price">{{ hotel.price_range }}</span>
+                        </div>
+                        <p class="amenities">
+                            {% for amenity in hotel.get_amenities_list %}
+                                <span class="amenity-tag">{{ amenity }}</span>
+                            {% endfor %}
+                        </p>
+                        <a href="{% url 'core:hotel_detail' hotel.id %}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="no-results">No hotels found.</p>          {% endfor %}
+                </section>
+            </div>
+        {% endblock %}

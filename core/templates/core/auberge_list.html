@@ -1,0 +1,81 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Auberges{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/listings.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-title-container">
+    <h1 class="page-title">Our Auberges</h1>
+</div>
+
+<div class="container">
+    <aside class="filter-sidebar">
+        <h3>Filter Your Search</h3>
+        <div class="filter-group">
+            <h4>Type</h4>
+            <label><input type="checkbox" name="type" value="maison"> Maison</label><br>
+            <label><input type="checkbox" name="type" value="camp"> Camp</label>
+        </div>
+
+        <div class="filter-group">
+            <h4>Capacity</h4>
+            <select name="capacity">
+                <option value="">Any</option>
+                <option value="1">1 Person</option>
+                <option value="2">2 People</option>
+                <option value="3">3 People</option>
+                <option value="4">4+ People</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <h4>Stars</h4>
+            <label><input type="checkbox" name="stars" value="1"> 1 Star</label><br>
+            <label><input type="checkbox" name="stars" value="2"> 2 Stars</label><br>
+            <label><input type="checkbox" name="stars" value="3"> 3 Stars</label><br>
+            <label><input type="checkbox" name="stars" value="4"> 4 Stars</label><br>
+            <label><input type="checkbox" name="stars" value="5"> 5 Stars</label>
+        </div>
+    </aside>
+
+    <section class="item-listings">
+        {% for auberge in auberges %}
+        <div class="listing-card">
+            {% if auberge.image_list %}
+                <img src="{{ auberge.image_list.0 }}" alt="{{ auberge.nom }}">
+            {% else %}
+                <img src="{% static 'path/to/default/image.jpg' %}" alt="Default Image">
+            {% endif %}
+            <div class="listing-info">
+                <h3><a href="{% url 'core:auberge_detail' auberge.id %}">{{ auberge.nom }}</a></h3>
+                <div class="rating">
+                    {% for i in ""|rjust:auberge.stars %}
+                        <i class="fas fa-star"></i>
+                    {% endfor %}
+                    {% with ''|center:"5" as range %}
+                        {% for i in range %}
+                            {% if forloop.counter0 < auberge.stars %}
+                            {% else %}
+                                <i class="far fa-star"></i>
+                            {% endif %}
+                        {% endfor %}
+                    {% endwith %}
+                </div>
+                <p class="details">
+                    Type: {{ auberge.get_type_display }}<br>
+                    Capacity: {{ auberge.capacite }}
+                </p>
+                <p class="features">Features: {{ auberge.features|default:"Not specified" }}</p>
+                <a href="{% url 'core:auberge_detail' auberge.id %}" class="btn btn-primary">View Details</a>
+            </div>
+        </div>
+        {% empty %}
+        <p class="no-results">No auberges found.</p>
+        {% endfor %}
+    </section>
+</div>
+{% endblock %}

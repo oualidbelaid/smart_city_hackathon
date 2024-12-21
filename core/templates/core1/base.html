@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <style>
+        /* Paste footer styles from style.css here */
+        footer {
+            background: #333;
+            color: #fff;
+            padding: 40px 0;
+        }
+
+        .footer-section {
+            float: left;
+            width: 30%;
+            margin-right: 3%;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 10px;
+        }
+
+        .social-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .social-links li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .footer-bottom {
+            margin-top: 20px;
+            clear: both;
+            text-align: center;
+        }
+
+        .footer-bottom .cta {
+            background: #0077cc;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+         /* End of footer styles */
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Your Site Title{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/hotel.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/auberge.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/complex.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/transport.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/profile.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">SmartCity</div>
+                  
+<nav>
+    <ul>
+        <li><a href="{% url 'core:index' %}">Home</a></li>
+        <li><a href="{% url 'core:hotel_list' %}">Hotels</a></li>
+        <li><a href="{% url 'core:auberge_list' %}">Auberges</a></li>
+        <li><a href="{% url 'core:complexe_list' %}">Complexes</a></li>
+        <li><a href="{% url 'core:transport' %}">Transport</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'core:profile' %}" id="profile-link">
+                <i class="fas fa-user-circle"></i>
+                {{ user.username }}
+            </a></li>
+                 
+<li>
+    <form method="post" action="{% url 'core:logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+</li>
+
+    
+        {% else %}
+            <li><a href="{% url 'core:login' %}">Login</a></li>
+            <li><a href="{% url 'core:register' %}">Register</a></li>
+        {% endif %}
+    </ul>
+</nav>
+<div class="menu-toggle"><i class="fas fa-bars"></i></div>
+    
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-section about">
+                <h4>About Us</h4>
+                <p>We are dedicated to providing the best experiences in our smart city.</p>
+            </div>
+            <div class="footer-section contact">
+                <h4>Contact Us</h4>
+                <p>Email: info@smartcity.com</p>
+                <p>Phone: +123-456-7890</p>
+            </div>
+            <div class="footer-section follow">
+                <h4>Follow Us</h4>
+                <ul class="social-links">
+                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                </ul>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 SmartCity. All rights reserved.</p>
+                <button class="cta">Explore Now</button>
+            </div>
+        </div>
+    </footer>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

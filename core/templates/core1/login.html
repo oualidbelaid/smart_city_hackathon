@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Login - SmartCity{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/login_register.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="form-container login-container">
+        <h2>Login to SmartCity</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="error">{{ field.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn">Login</button>
+        </form>
+        <p class="switch-form">Don't have an account? <a href="{% url 'core:register' %}">Register</a></p>
+    </div>
+</div>
+{% endblock %}

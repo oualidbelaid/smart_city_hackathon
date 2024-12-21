@@ -1,0 +1,54 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Chat with Boumerdès Breeze{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/preferences_chat.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+    <div class="container">
+        <h1>Hotel Suggestion Bot</h1>
+        <div class="chat-interface">
+            <div class="messages" id="messages">
+                <p class="bot-message">Welcome! How can I help you today?</p>
+            </div>
+            <button id="openModal">Set Preferences</button>
+        </div>
+
+        <div class="modal" id="constraintModal">
+            <div class="modal-content">
+                <h2 class="modal-title">Choose Constraint</h2>
+                <label class="radio-label">
+                    <input type="radio" id="time" name="constraint" value="time">
+                    Time
+                </label>
+                <label class="radio-label">
+                    <input type="radio" id="budget" name="constraint" value="budget">
+                    Budget
+                </label>
+
+                <div id="timeInput" style="display: none;">
+                    <label for="myCalendar">Select Dates:</label>
+                    <input type="text" id="myCalendar" placeholder="Select dates">
+                </div>
+
+                <div id="budgetInput" style="display: none;">
+                    <label for="budgetAmount">Enter Budget:</label>
+                    <input type="number" id="budgetAmount" name="budgetAmount" placeholder="Enter amount">
+                </div>
+
+                <button id="submitConstraint">Submit</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/preferences_chat.js' %}"></script>
+{% endblock %}

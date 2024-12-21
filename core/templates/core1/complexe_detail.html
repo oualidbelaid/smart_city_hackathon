@@ -1,0 +1,131 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ complexe.name }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/complexe_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="complexe-detail-page">
+        <div class="complexe-detail-header">
+            <h1>{{ complexe.name }}</h1>
+            <div class="complexe-detail-rating">
+                <span class="complexe-detail-stars">
+                    {% for i in ""|rjust:complexe.stars %}★{% endfor %}
+                    {% with ''|center:"5" as range %}
+                        {% for i in range %}
+                            {% if forloop.counter0 < complexe.stars %}
+                            {% else %}
+                                ☆
+                            {% endif %}
+                        {% endfor %}
+                    {% endwith %}
+                </span>
+            </div>
+        </div>
+
+        <div class="complexe-detail-image">
+            <img src="{{ complexe.image.url }}" alt="{{ complexe.name }}">
+        </div>
+
+        <div class="complexe-detail-content">
+            <div class="complexe-detail-description">
+                <h3>Description</h3>
+                <p>{{ complexe.description }}</p>
+            </div>
+
+            <div class="complexe-detail-area">
+                <h3>Area</h3>
+                <p>{{ complexe.area }}</p>
+            </div>
+
+            {% if complexe.facilities %}
+                <div class="complexe-detail-facilities">
+                    <h3>Facilities</h3>
+                    <ul>
+                        {% for facility in complexe.get_facilities_list %}
+                        <li>{{ facility }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {% if complexe.accommodation_types %}
+                <div class="complexe-detail-accommodation">
+                    <h3>Accommodation Types</h3>
+                    <p>{{ complexe.accommodation_types }}</p>
+                </div>
+            {% endif %}
+
+            {% if complexe.suitable_for %}
+                <div class="complexe-detail-suitable-for">
+                    <h3>Suitable For</h3>
+                    <p>{{ complexe.suitable_for }}</p>
+                </div>
+            {% endif %}
+
+            <div class="reservation-section">
+                <h3>Make a Reservation</h3>
+                <button id="openReservationModal" class="btn">Reserve Now</button>
+                <div id="reservationModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-button">×</span>
+                        <h2>Make a Reservation</h2>
+                        {% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                            <form method="post" action="{% url 'core:make_reservation' 'complexe' complexe.id %}">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <button type="submit" class="btn">Confirm Reservation</button>
+                            </form>
+                        {% else %}
+                            <p><a href="{% url 'core:login' %}?next={{ request.path }}">Login</a> to make a reservation.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+        // Get the modal
+        var modal = $("#reservationModal");
+
+        // Get the button that opens the modal
+        var btn = $("#openReservationModal");
+
+        // Get the <span> element that closes the modal
+        var span = $(".close-button");
+
+        // When the user clicks the button, open the modal
+        btn.click(function() {
+            modal.show();
+        });
+
+        // When the user clicks on <span> (x), close the modal
+        span.click(function() {
+            modal.hide();
+        });
+
+        // When the user clicks anywhere outside of the modal, close it
+        $(window).click(function(event) {
+            if ($(event.target).is(modal)) {
+                modal.hide();
+            }
+        });
+    });
+</script>
+{% endblock %}

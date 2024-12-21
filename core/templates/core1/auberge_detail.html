@@ -1,0 +1,125 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ auberge.nom }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auberge_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="auberge-detail-page">
+        <div class="auberge-detail-header">
+            <h1>{{ auberge.nom }}</h1>
+            <div class="auberge-detail-rating">
+                <span class="auberge-detail-stars">
+                    {% for i in ""|rjust:auberge.stars %}★{% endfor %}
+                    {% with ''|center:"5" as range %}
+                        {% for i in range %}
+                            {% if forloop.counter0 < auberge.stars %}
+                            {% else %}
+                                ☆
+                            {% endif %}
+                        {% endfor %}
+                    {% endwith %}
+                </span>
+            </div>
+        </div>
+
+        <div class="auberge-detail-image">
+            {% if auberge.image_list %}
+                <img src="{{ auberge.image_list.0 }}" alt="{{ auberge.nom }}">
+            {% else %}
+                <img src="{% static 'path/to/default/image.jpg' %}" alt="Default Image">
+            {% endif %}
+        </div>
+
+        <div class="auberge-detail-content">
+            <div class="auberge-detail-description">
+                <h3>Description</h3>
+                <p>
+                    Type: {{ auberge.get_type_display }}<br>
+                    Capacité: {{ auberge.capacite }}<br>
+                    Adresse: {{ auberge.adresse }}<br>
+                    Téléphone: {{ auberge.telephone }}<br>
+                    Email: {{ auberge.email }}<br>
+                </p>
+            </div>
+
+            {% if auberge.features %}
+                <div class="auberge-detail-features">
+                    <h3>Caractéristiques</h3>
+                    <ul>
+                        {% for feature in auberge.get_features_list %}
+                        <li>{{ feature }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {% if auberge.offres %}
+                <div class="auberge-detail-offers">
+                    <h3>Offres</h3>
+                    <ul>
+                        {% for offer in auberge.offres %}
+                        <li>{{ offer.description }} - {{ offer.price }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <div class="reservation-section">
+                <h3>Make a Reservation</h3>
+                <button id="openReservationModal" class="btn">Reserve Now</button>
+                <div id="reservationModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-button">×</span>
+                        <h2>Make a Reservation</h2>
+                        {% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                            <form method="post" action="{% url 'core:make_reservation' 'auberge' auberge.id %}">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <button type="submit" class="btn">Confirm Reservation</button>
+                            </form>
+                        {% else %}
+                            <p><a href="{% url 'core:login' %}?next={{ request.path }}">Login</a> to make a reservation.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+        var modal = $("#reservationModal");
+        var btn = $("#openReservationModal");
+        var span = $(".close-button");
+
+        btn.click(function() {
+            modal.show();
+        });
+
+        span.click(function() {
+            modal.hide();
+        });
+
+        $(window).click(function(event) {
+            if ($(event.target).is(modal)) {
+                modal.hide();
+            }
+        });
+    });
+</script>
+{% endblock %}

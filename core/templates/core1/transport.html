@@ -1,0 +1,49 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Transport in Boumerdès - Boumerdès Breeze{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/transport.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/transport.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="page-title">
+    <h1>Getting Around Boumerdès</h1>
+</div>
+
+<div class="container">
+    <section class="map-transport-container">
+        <section class="map-section">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d408208.8747542297!2d2.896846786765017!3d36.754394319377474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128e50cc5857d373%3A0x69555d37e54d258b!2sBoumerdes%2C%20Alg%C3%A9rie!5e0!3m2!1sfr!2sus!4v1707784335555!5m2!1sfr!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </section>
+
+        <section class="transport-listings">
+            <div class="filter-search">
+                <form method="get">
+                    <input type="text" name="q" id="filter-input" placeholder="Filter by type, destination, or schedule...">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+
+            {% for transport in transports %}
+            <div class="transport-type">
+                <h2>{{ transport.get_type_display }}</h2>
+                <div class="transport-item" data-type="{{ transport.type }}" data-destination="{{ transport.route }}" data-schedule="{{ transport.schedule }}">
+                    <h3>{{ transport.name }}</h3>
+                    <p class="route">Route: {{ transport.route }}</p>
+                    <p class="schedule">Schedule: {{ transport.schedule }}</p>
+                    <p class="fare">Fare: {{ transport.fare }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <p>No transport options found.</p>
+            {% endfor %}
+        </section>
+    </section>
+</div>
+{% endblock %}

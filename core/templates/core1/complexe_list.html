@@ -1,0 +1,45 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Complexe Touristique in Boumerdès - Boumerdès Breeze{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/complex.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="page-title">
+        <h1>Discover the Best Complexe Touristique in Boumerdès</h1>
+    </div>
+
+    <div class="container">
+        <aside class="filter-sidebar">
+            <h3>Filter Your Search</h3>
+            <form method="get">
+                <button type="submit">Filter</button>
+            </form>
+        </aside>
+
+        <section class="complex-listings">
+            {% for complexe in complexes %}
+                <div class="complex-card">
+                    <img src="{{ complexe.image.url }}" alt="{{ complexe.name }}">
+                    <div class="complex-info">
+                        <h3><a href="{% url 'core:complexe_detail' complexe.id %}">{{ complexe.name }}</a></h3>
+                        <div class="rating">
+                            <span class="stars">{% for i in complexe.stars|rjust:complexe.stars %}★{% endfor %}{% for i in complexe.stars|ljust:complexe.stars %}☆{% endfor %}</span>
+                            <span class="price">{{ complexe.price_range }}</span>
+                        </div>
+                        <p class="area">Area: {{ complexe.area }}</p>
+                        <p class="facilities">{% for facility in complexe.get_facilities_list %}{{ facility }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                        <p class="accommodation-types">Accommodation: {{ complexe.accommodation_types }}</p>
+                        <p class="suitable-for">Suitable for: {{ complexe.suitable_for }}</p>
+                        <a href="{% url 'core:complexe_detail' complexe.id %}" class="view-details">View Details</a>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No complexes found.</p>
+            {% endfor %}
+        </section>
+    </div>
+{% endblock %}

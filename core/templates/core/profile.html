@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}User Profile - SmartCity{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-header">
+        <h1>Your Profile</h1>
+    </div>
+    <div class="profile-content">
+        <div class="profile-field">
+            <i class="fas fa-user"></i>
+            <span>{{ user.first_name }} {{ user.last_name }}</span>
+        </div>
+        <div class="profile-field">
+            <i class="fas fa-envelope"></i>
+            <span>{{ user.email }}</span>
+        </div>
+        {% if user.resident %}
+            <div class="profile-field">
+                <i class="fas fa-id-card"></i>
+                <span>{{ user.resident.numero_carte_identite }}</span>
+            </div>
+            <div class="profile-field">
+                <i class="fas fa-venus-mars"></i>
+                <span>{{ user.resident.get_sexe_display }}</span>
+            </div>
+            <div class="profile-field">
+                <i class="fas fa-calendar-alt"></i>
+                <span>{{ user.resident.date_naissance }}</span>
+            </div>
+            <div class="profile-field">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>{{ user.resident.lieu_naissance }}</span>
+            </div>
+        {% else %}
+            <p class="profile-incomplete">Please complete your profile information.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

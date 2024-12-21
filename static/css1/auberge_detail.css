@@ -1,0 +1,349 @@
+/* auberge_detail.css */
+
+/* General Styles (consistent with existing styles) */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f8f8f8;
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+a {
+    text-decoration: none;
+    color: #0077cc;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #005580;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 600;
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Header (consistent) */
+header {
+    background: #333;
+    color: #fff;
+    padding: 40px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    float: left;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+nav {
+    float: right;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav li {
+    display: inline-block;
+    margin-left: 25px;
+    position: relative;
+}
+
+nav li a {
+    padding-bottom: 5px;
+    color: #fff;
+    font-weight: 500;
+}
+
+nav li a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: width 0.2s ease;
+}
+
+nav li a:hover::after {
+    width: 100%;
+}
+
+/* Auberge Detail Page Specific Styles */
+.auberge-detail-page {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    padding: 30px;
+    margin-bottom: 40px;
+}
+
+.auberge-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #0077cc;
+}
+
+.auberge-detail-header h1 {
+    color: #0077cc;
+    font-size: 3rem;
+}
+
+.auberge-detail-rating {
+    display: flex;
+    align-items: center;
+}
+
+.auberge-detail-stars {
+    color: #fdcc0d;
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.auberge-detail-image {
+    margin-bottom: 30px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.auberge-detail-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.auberge-detail-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+.auberge-detail-description,
+.auberge-detail-features,
+.auberge-detail-offers {
+    margin-bottom: 30px;
+}
+
+.auberge-detail-features ul,
+.auberge-detail-offers ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.auberge-detail-features li,
+.auberge-detail-offers li {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    .auberge-detail-page {
+        padding: 20px;
+    }
+
+    .auberge-detail-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .auberge-detail-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .auberge-detail-image {
+        margin-bottom: 20px;
+    }
+
+    .auberge-detail-content {
+        grid-template-columns: 1fr;
+    }
+
+    .auberge-detail-features ul,
+    .auberge-detail-offers ul {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    border-radius: 10px;
+}
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+}
+
+.reservation-section button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    border-radius: 5px;
+}
+
+.reservation-section button:hover {
+    background-color: #fff;
+    color: #4CAF50;
+    border: 2px solid #4CAF50;
+}
+
+.modal-content form .form-group {
+    margin-bottom: 15px;
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="email"],
+.modal-content input[type="password"],
+.modal-content input[type="number"],
+.modal-content input[type="date"],
+.modal-content select,
+.modal-content textarea {
+    width: calc(100% - 22px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.modal-content textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.modal-content .btn {
+    width: auto;
+    padding: 10px 20px;
+    margin-top: 10px;
+}
+
+.modal-content .messages {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.modal-content .messages li {
+    background-color: #fdd;
+    border: 1px solid #faa;
+    color: #a00;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 20% auto;
+        width: 95%;
+    }
+
+    .modal-content form .form-group input,
+    .modal-content form .form-group select,
+    .modal-content form .form-group textarea {
+        width: calc(100% - 22px); /* Adjust for padding and border */
+    }
+}

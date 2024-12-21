@@ -1,0 +1,42 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Transport in Boumerdès - Boumerdès Breeze{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/transport.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-title-container">
+    <h1 class="page-title">Getting Around Boumerdès</h1>
+</div>
+
+<div class="container">
+    <section class="transport-grid">
+        <div class="map-section">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d408208.8747542297!2d2.896846786765017!3d36.754394319377474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128e50cc5857d373%3A0x69555d37e54d258b!2sBoumerdes%2C%20Alg%C3%A9rie!5e0!3m2!1sfr!2sus!4v1707784335555!5m2!1sfr!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <div class="transport-listings">
+            <div class="filter-search">
+                <form method="get" class="search-form">
+                    <input type="text" name="q" id="filter-input" placeholder="Search transport options">
+                    <button type="submit" class="btn">Search</button>
+                </form>
+            </div>
+
+            {% for transport in transports %}
+            <div class="transport-card">
+                <h3>{{ transport.get_type_display }}: {{ transport.name }}</h3>
+                <p><i class="fas fa-route"></i> Route: {{ transport.route }}</p>
+                <p><i class="far fa-clock"></i> Schedule: {{ transport.schedule }}</p>
+                <p><i class="fas fa-money-bill-wave"></i> Fare: {{ transport.fare }}</p>
+            </div>
+            {% empty %}
+            <p class="no-results">No transport options found.</p>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+/* css/profile.css (New) */
+.profile-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 600px;
+    margin: 30px auto;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-header h1 {
+    color: #4CAF50; /* Playful green */
+    margin-bottom: 0;
+}
+
+.profile-content {
+    padding: 0 20px;
+}
+
+.profile-field {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.profile-field:last-child {
+    border-bottom: none;
+}
+
+.profile-field i {
+    color: #007bff; /* Vivid blue for icons */
+    margin-right: 15px;
+    font-size: 1.2em;
+    width: 20px; /* Adjust as needed for alignment */
+    text-align: center;
+}
+
+.profile-field span {
+    font-size: 1em;
+    color: #555;
+}
+
+.profile-incomplete {
+    text-align: center;
+    color: #777;
+    font-style: italic;
+}

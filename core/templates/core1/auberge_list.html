@@ -1,0 +1,92 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Auberges{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auberge.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="page-title">Our Auberges</h1>
+
+    <div class="main-content">
+        <div class="filter-sidebar">
+            <div class="filter-group">
+                <h4>Filter by Type</h4>
+                <label>
+                    <input type="checkbox" name="type" value="maison"> Maison
+                </label>
+                <label>
+                    <input type="checkbox" name="type" value="camp"> Camp
+                </label>
+            </div>
+
+            <div class="filter-group">
+                <h4>Filter by Capacity</h4>
+                <select name="capacity">
+                    <option value="">Any</option>
+                    <option value="1">1 Person</option>
+                    <option value="2">2 People</option>
+                    <option value="3">3 People</option>
+                    <option value="4">4+ People</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <h4>Filter by Stars</h4>
+                <label>
+                    <input type="checkbox" name="stars" value="1"> 1 Star
+                </label>
+                <label>
+                    <input type="checkbox" name="stars" value="2"> 2 Stars
+                </label>
+                <label>
+                    <input type="checkbox" name="stars" value="3"> 3 Stars
+                </label>
+                <label>
+                    <input type="checkbox" name="stars" value="4"> 4 Stars
+                </label>
+                <label>
+                    <input type="checkbox" name="stars" value="5"> 5 Stars
+                </label>
+            </div>
+        </div>
+
+        <div class="auberge-listings">
+            {% for auberge in auberges %}
+            <div class="auberge-card">
+                {% if auberge.image_list %}
+                    <img src="{{ auberge.image_list.0 }}" alt="{{ auberge.nom }}">
+                {% else %}
+                    <img src="{% static 'path/to/default/image.jpg' %}" alt="Default Image">
+                {% endif %}
+                <div class="auberge-info">
+                    <h3>{{ auberge.nom }}</h3>
+                    <div class="rating">
+                        <span class="stars">
+                            {% for i in ""|rjust:auberge.stars %}★{% endfor %}
+                            {% with ''|center:"5" as range %}
+                                {% for i in range %}
+                                    {% if forloop.counter0 < auberge.stars %}
+                                    {% else %}
+                                        ☆
+                                    {% endif %}
+                                {% endfor %}
+                            {% endwith %}
+                        </span>
+                    </div>
+                    <p class="type">Type: {{ auberge.get_type_display }}</p>
+                    <p class="rooms">Rooms: {{ auberge.capacite }}</p>
+                    <p class="features">Features: {{ auberge.features|default:"Not specified" }}</p>
+                    <a href="{% url 'core:auberge_detail' auberge.id %}" class="view-details">View Details</a>
+                </div>
+            </div>
+            {% empty %}
+            <p>No auberges found.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

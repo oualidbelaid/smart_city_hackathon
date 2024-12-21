@@ -1,0 +1,177 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f8f8f8;
+    line-height: 1.6;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+a {
+    text-decoration: none;
+    color: #0077cc;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #005580;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 600;
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+/* Header */
+header {
+    background: #333;
+    color: #fff;
+    padding: 40px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    float: left;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+nav {
+    float: right;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav li {
+    display: inline-block;
+    margin-left: 25px;
+    position: relative;
+}
+
+nav li a {
+    padding-bottom: 5px;
+    color: #fff;
+    font-weight: 500;
+}
+
+#profile-link {
+    display: flex;
+    align-items: center;
+}
+
+#profile-link i {
+    margin-right: 5px; /* Space between icon and text */
+    font-size: 1.5rem;
+}
+
+nav li a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: width 0.2s ease;
+}
+
+nav li a:hover::after {
+    width: 100%;
+}
+
+/* Profile Page */
+main {
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+.profile-container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    padding: 30px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.profile-header {
+    border-bottom: 2px solid #eee;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.profile-header h2 {
+    color: #0077cc; /* Using the primary color */
+}
+
+.profile-content {
+    display: grid;
+    grid-template-columns: 1fr; /* Adjust if you want different column behavior */
+    gap: 20px;
+}
+
+.profile-field {
+    display: flex;
+    align-items: center;
+}
+
+.profile-field label {
+    font-weight: 500;
+    color: #333;
+    width: 180px;
+    flex-shrink: 0;
+}
+
+.profile-field span {
+    color: #555;
+    font-size: 1rem;
+}
+
+/* Styling for different field types */
+.profile-field.id-number { /* Example to style specific fields */
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    .profile-container {
+        padding: 20px;
+    }
+
+    .profile-content {
+        grid-template-columns: 1fr; /* Stack fields vertically on small screens */
+    }
+
+    .profile-field {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .profile-field label {
+        margin-bottom: 5px;
+    }
+}

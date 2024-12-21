@@ -1,0 +1,71 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ hotel.name }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="detail-container">
+    <div class="detail-header">
+        <h1>{{ hotel.name }}</h1>
+        <div class="detail-rating">
+            {% for i in ""|rjust:hotel.stars %}
+                <i class="fas fa-star"></i>
+            {% endfor %}
+            {% with ''|center:"5" as range %}
+                {% for i in range %}
+                    {% if forloop.counter0 < hotel.stars %}
+                    {% else %}
+                        <i class="far fa-star"></i>
+                    {% endif %}
+                {% endfor %}
+            {% endwith %}
+        </div>
+    </div>
+
+    <div class="detail-image">
+        <img src="{{ hotel.image.url }}" alt="{{ hotel.name }}">
+    </div>
+
+    <div class="detail-content">
+        <p class="description">{{ hotel.description }}</p>
+
+        {% if hotel.amenities %}
+        <div class="detail-section">
+            <h2>Amenities</h2>
+            <ul class="amenities-list">
+                {% for amenity in hotel.get_amenities_list %}
+                <li><i class="fas fa-check-circle"></i> {{ amenity }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <div class="call-to-reserve">
+            <h3>Ready to Book?</h3>
+             <p><strong>Price:</strong> {{ hotel.price_range }}</p>
+              <p><strong>Places Available:</strong> <span id="availability"> {{ hotel.available_rooms }} </span></p>
+             <p>Call us now to book your stay: <a href="tel:+213555123456">+213 555 123 456</a></p>
+            </div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+ <script>
+         document.addEventListener('DOMContentLoaded', function() {
+                // Simulate Real-time availability (for demonstration only)
+           function updateAvailability() {
+               const availabilityElement = document.getElementById('availability');
+              if (availabilityElement){
+                 const randomAvailability = Math.floor(Math.random() * 10) + 1;
+                  availabilityElement.textContent = randomAvailability;
+
+                  }
+            }
+            updateAvailability();
+             setInterval(updateAvailability, 3000);
+        });
+   </script>
+{% endblock %}

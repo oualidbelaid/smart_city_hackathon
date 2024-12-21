@@ -1,0 +1,52 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}User Profile - SmartCity{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="profile-container">
+        <div class="profile-header">
+            <h2>Your Profile</h2>
+        </div>
+        <div class="profile-content">
+            <div class="profile-field">
+                <label for="first-name">First Name:</label>
+                <span id="first-name">{{ user.first_name }}</span>
+            </div>
+            <div class="profile-field">
+                <label for="last-name">Last Name:</label>
+                <span id="last-name">{{ user.last_name }}</span>
+            </div>
+            <div class="profile-field">
+                <label for="email">Email:</label>
+                <span id="email">{{ user.email }}</span>
+            </div>
+            {% if user.resident %}
+                <div class="profile-field">
+                    <label for="id-number">National ID Number:</label>
+                    <span id="id-number">{{ user.resident.numero_carte_identite }}</span>
+                </div>
+                <div class="profile-field">
+                    <label for="sex">Sex:</label>
+                    <span id="sex">{{ user.resident.get_sexe_display }}</span>
+                </div>
+                <div class="profile-field">
+                    <label for="date-of-birth">Date of Birth:</label>
+                    <span id="date-of-birth">{{ user.resident.date_naissance }}</span>
+                </div>
+                <div class="profile-field">
+                    <label for="place-of-birth">Place of Birth:</label>
+                    <span id="place-of-birth">{{ user.resident.lieu_naissance }}</span>
+                </div>
+            {% else %}
+                <p>Please complete your profile information.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
